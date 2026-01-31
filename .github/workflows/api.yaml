@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: API Tests
 
 on:
   push:
@@ -25,6 +25,11 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+
+      - name: Debug - Check secrets
+        run: |
+          echo "Username: ${{ secrets.FAKESTOREAPI_USERNAME }}"
+          echo "Password: ${{ secrets.FAKESTOREAPI_PASSWORD }}"
 
       - name: Run API tests
         run: npx playwright test API/
