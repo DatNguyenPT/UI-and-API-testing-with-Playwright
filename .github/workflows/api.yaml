@@ -11,10 +11,6 @@ jobs:
     env:
       FAKESTOREAPI_USERNAME: ${{ secrets.FAKESTOREAPI_USERNAME }}
       FAKESTOREAPI_PASSWORD: ${{ secrets.FAKESTOREAPI_PASSWORD }}
-      SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
-      SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
-      SAUCEDEMO_INVALID_USERNAME: ${{ secrets.SAUCEDEMO_INVALID_USERNAME }}
-      SAUCEDEMO_INVALID_PASSWORD: ${{ secrets.SAUCEDEMO_INVALID_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +26,5 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run tests
-        run: npx playwright test UI/
       - name: Run API tests
         run: npx playwright test API/
