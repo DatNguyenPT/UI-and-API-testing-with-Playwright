@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const sauceDemoBaseURL = 'https://www.saucedemo.com';
-const reqresBaseURL = 'https://fakestoreapi.com';
+const apiBaseURL = 'https://fakestoreapi.com';
 
 export default defineConfig({
   testDir: './tests',
@@ -51,10 +51,10 @@ export default defineConfig({
         ...devices['Desktop Safari'] },
     },
     {
-      name: 'api-reqres',
+      name: 'api',
       testDir: './tests/API',
       use: {
-        baseURL: reqresBaseURL,
+        baseURL: apiBaseURL,
       },
     }
   ],

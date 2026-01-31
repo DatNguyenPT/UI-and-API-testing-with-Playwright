@@ -11,9 +11,11 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.58.1",
+    "@types/debug": "^4.1.12",
     "@types/node": "^25.1.0"
   },
   "dependencies": {
+    "debug": "^4.4.3",
     "dotenv": "^17.2.3"
   }
 }
