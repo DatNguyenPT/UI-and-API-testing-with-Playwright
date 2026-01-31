@@ -5,27 +5,13 @@ on:
   pull_request:
 
 jobs:
-  # Stage 1: Setup and Install Dependencies
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install deps
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-  # Stage 2: Run UI Tests
   ui-tests:
-    needs: setup
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [ui-chromium, ui-firefox, ui-webkit]
+
     env:
       SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
       SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
@@ -34,26 +20,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npx playwright test UI/
 
-  # Stage 3: Run API Tests
-  api-tests:
-    needs: setup
-    runs-on: ubuntu-latest
-    env:
-      FAKESTOREAPI_USERNAME: ${{ secrets.FAKESTOREAPI_USERNAME }}
-      FAKESTOREAPI_PASSWORD: ${{ secrets.FAKESTOREAPI_PASSWORD }}
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Cache npm
+        uses: actions/cache@v4
         with:
-          node-version: 20
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npx playwright test API/
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run UI tests
+        run: npx playwright test UI/ --project=${{ matrix.browser }}
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report
