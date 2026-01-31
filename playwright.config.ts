@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const sauceDemoBaseURL = 'https://www.saucedemo.com';
+const reqresBaseURL = 'https://reqres.in/api';
+
 export default defineConfig({
   testDir: './tests',
   timeout: 30 * 1000,
@@ -11,26 +14,48 @@ export default defineConfig({
     ['html', { open: 'never' }],
   ],
 
-  use: {
-    baseURL: 'https://www.saucedemo.com',
-    headless: true,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry',
-  },
-
   projects: [
     {
-      name: 'Chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'ui-chromium',
+      testDir: './tests/UI',
+      use: {
+        baseURL: sauceDemoBaseURL,
+        headless: true,
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
+        trace: 'on-first-retry',
+        ...devices['Desktop Chrome'] 
+      },
     },
     {
-      name: 'Firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'ui-firefox',
+      testDir: './tests/UI',
+      use: { 
+        baseURL: sauceDemoBaseURL,
+        headless: true,
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
+        trace: 'on-first-retry',
+        ...devices['Desktop Firefox'] 
+      },
     },
     {
-      name: 'WebKit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'ui-webkit',
+      testDir: './tests/UI',
+      use: { 
+        baseURL: sauceDemoBaseURL,
+        headless: true,
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
+        trace: 'on-first-retry',
+        ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'api-reqres',
+      testDir: './tests/API',
+      use: {
+        baseURL: reqresBaseURL,
+      },
     }
   ],
 });
