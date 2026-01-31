@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const sauceDemoBaseURL = 'https://www.saucedemo.com';
-const reqresBaseURL = 'https://reqres.in/api';
+const reqresBaseURL = 'https://fakestoreapi.com';
 
 export default defineConfig({
   testDir: './tests',
