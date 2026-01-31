@@ -22,26 +22,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-  # Stage 2: Run UI Tests
-  ui-tests:
-    needs: setup
-    runs-on: ubuntu-latest
-    env:
-      SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
-      SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
-      SAUCEDEMO_INVALID_USERNAME: ${{ secrets.SAUCEDEMO_INVALID_USERNAME }}
-      SAUCEDEMO_INVALID_PASSWORD: ${{ secrets.SAUCEDEMO_INVALID_PASSWORD }}
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npx playwright test UI/
-
-  # Stage 3: Run API Tests
+  # Stage 2: Run API Tests
   api-tests:
     needs: setup
     runs-on: ubuntu-latest
