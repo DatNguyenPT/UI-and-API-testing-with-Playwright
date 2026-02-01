@@ -24,6 +24,10 @@ test.describe('Login - SauceDemo', () => {
     const logoutBtn = loginPage.page.locator('#logout_sidebar_link');
     await expect(logoutBtn).toBeVisible();
   });
+});
+
+// Parallel fail login tests
+test.describe.parallel('Login with invalid credentials', () => {
 
   test('Login fails with invalid credentials', async ({ loginPage }) => {
     const invalidUsername:string = process.env.SAUCEDEMO_INVALID_USERNAME!;
@@ -31,12 +35,8 @@ test.describe('Login - SauceDemo', () => {
     await loginPage.goto();
     await loginPage.login(invalidUsername, invalidPassword);
     await errorExpectation(loginPage, 'Username and password do not match any user in this service');
-   
   });
-});
 
-// Parallel login tests
-test.describe.parallel('Login with empty credentials', () => {
   test('Login with empty username and password', async ({ loginPage }) => {
     await loginPage.goto();
     await loginPage.login('', '');
