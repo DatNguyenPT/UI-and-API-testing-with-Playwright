@@ -1,5 +1,5 @@
 import { BaseApi } from './BaseApi';
-import { API_ENDPOINTS } from '../fixtures/api-endpoint.fixture';
+import { API_ENDPOINTS } from '../fixtures/APIEndpoints.fixture';
 
 export class AuthApi extends BaseApi {
   async login(credentials: any, headers?: Record<string, string>) {
