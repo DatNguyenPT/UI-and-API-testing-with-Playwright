@@ -6,6 +6,7 @@ dotenv.config();
 test.describe('Product Page - SauceDemo', () => {
 
   test('Verify components on product page', async ({ mainPage }) => {
+    await mainPage.goto();
     const itemCount = await mainPage.inventoryItems.count();
     logUI('Number of products displayed:', itemCount);
     expect(itemCount).toBeGreaterThan(0);

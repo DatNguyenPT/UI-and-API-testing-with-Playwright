@@ -1,7 +1,8 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { logUI } from '../utils/logger';
 
-export class MainPage {
-  readonly page: Page;
+export class MainPage extends BasePage {
   readonly inventoryList: Locator;
   readonly inventoryItems: Locator;
   readonly shoppingCartLink: Locator
@@ -11,7 +12,7 @@ export class MainPage {
   readonly productSortContainer: Locator
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.inventoryList = page.locator('[data-test="inventory-list"]');
     this.inventoryItems = page.locator('[data-test="inventory-item"]');
     this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]');
@@ -22,6 +23,7 @@ export class MainPage {
   }
 
   async goto() {
-    await this.page.goto('/inventory.html');
+    logUI(`Navigating to Product Page: ${this.page.url()}`);
+    await super.goto('/inventory.html');
   }
 }
