@@ -25,4 +25,22 @@ test.describe('Product Page - SauceDemo', () => {
     ]);
   });
 
+
+  test('Sort by Name (A to Z)', async ({ mainPage }) => {
+    await mainPage.goto();
+    await mainPage.productSortContainer.selectOption({ label: 'Name (A to Z)' });
+    const productNames = await mainPage.page.$$eval('[data-test="inventory-item-name"]', els => els.map(e => e.textContent?.trim() || ''));
+    const sortedNames = [...productNames].sort((a, b) => a.localeCompare(b));
+    expect(productNames).toEqual(sortedNames);
+  });
+
+
+  test('Sort by Name (Z to A)', async ({ mainPage }) => {
+    await mainPage.goto();
+    await mainPage.productSortContainer.selectOption({ label: 'Name (Z to A)' });
+    const productNames = await mainPage.page.$$eval('[data-test="inventory-item-name"]', els => els.map(e => e.textContent?.trim() || ''));
+    const sortedNames = [...productNames].sort((a, b) => b.localeCompare(a));
+    expect(productNames).toEqual(sortedNames);
+  });
+
 });
