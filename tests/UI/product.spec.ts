@@ -30,19 +30,19 @@ test.describe('Product Page - SauceDemo', () => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
-    
+
     await test.step('Select sort option Name (A to Z)', async () => {
       await mainPage.productSortContainer.selectOption({ label: 'Name (A to Z)' });
     });
 
-     await test.step('Verify product names are sorted A to Z', async () => {
+    await test.step('Verify product names are sorted A to Z', async () => {
       const productNames = await mainPage.page.$$eval(
         '[data-test="inventory-item-name"]',
         els => els.map(e => e.textContent?.trim() || '')
       );
-
       expect(productNames.length).toBeGreaterThan(1);
-
+      const emptyNames = productNames.filter(name => name === '');
+      expect(emptyNames, 'All product names should be non-empty').toHaveLength(0);
       const sortedNames = [...productNames].sort((a, b) => a.localeCompare(b));
       expect(productNames).toEqual(sortedNames);
     });
@@ -63,12 +63,11 @@ test.describe('Product Page - SauceDemo', () => {
         '[data-test="inventory-item-name"]',
         els => els.map(e => e.textContent?.trim() || '')
       );
-
       expect(productNames.length).toBeGreaterThan(1);
-
+      const emptyNames = productNames.filter(name => name === '');
+      expect(emptyNames, 'All product names should be non-empty').toHaveLength(0);
       const sortedNames = [...productNames].sort((a, b) => b.localeCompare(a));
       expect(productNames).toEqual(sortedNames);
     });
   });
-
 });

@@ -89,4 +89,4 @@ test.describe.parallel('Login with invalid credentials', () => {
       await errorExpectation(loginPage, 'Password is required');
     });
   });
-})
+});

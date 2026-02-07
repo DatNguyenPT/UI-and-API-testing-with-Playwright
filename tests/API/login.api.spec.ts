@@ -7,8 +7,9 @@ dotenv.config();
 test.describe('API Login - Mock', () => {
 
   test('Login success', async ({ authAPI }) => {
-    await test.step('Prepare credentials', async () => {
-      const credentials = { username: process.env.FAKESTOREAPI_USERNAME, password: process.env.FAKESTOREAPI_PASSWORD };
+    const credentials = { username: process.env.FAKESTOREAPI_USERNAME, password: process.env.FAKESTOREAPI_PASSWORD };
+
+    await test.step('Login with valid credentials', async () => {
       const response = await authAPI.login(credentials);
       test.skip(response.status() === StatusCode.FORBIDDEN, 'Skipping test due to mock API limitation - CORS limitation.');
       expect(response.status()).toBe(StatusCode.CREATED);// mock API returns 201 for created
@@ -26,8 +27,9 @@ test.describe('API Login - Mock', () => {
   });
 
   test('Login failed - missing password', async ({ authAPI }) => {
-    await test.step('Prepare credentials and call login', async () => {
-      const credentials = { username: process.env.FAKESTOREAPI_USERNAME }; // No password provided
+    const credentials = { username: process.env.FAKESTOREAPI_USERNAME }; // No password provided
+
+    await test.step('Login with missing password', async () => {
       const response = await authAPI.login(credentials);
       test.skip(response.status() === StatusCode.FORBIDDEN, 'Skipping test due to mock API limitation - CORS limitation.');
       expect(response.status()).toBe(StatusCode.BAD_REQUEST);
