@@ -70,4 +70,52 @@ test.describe('Product Page - SauceDemo', () => {
       expect(productNames).toEqual(sortedNames);
     });
   });
+
+
+  test('Sort by Price (low to high)', async ({ mainPage }) => {
+    await test.step('Open product page', async () => {
+      await mainPage.goto();
+    });
+
+    await test.step('Select sort option Price (low to high)', async () => {
+      await mainPage.productSortContainer.selectOption({ label: 'Price (low to high)' });
+    });
+
+    await test.step('Verify product prices are sorted low to high', async () => {
+      const productPrices = await mainPage.page.$$eval(
+        '[data-test="inventory-item-price"]',
+        els => els.map(e => e.textContent?.trim() || '')
+      );
+      expect(productPrices.length).toBeGreaterThan(1);
+      const emptyPrices = productPrices.filter(price => price === '');
+      expect(emptyPrices, 'All product prices should be non-empty').toHaveLength(0);
+      const numericPrices = productPrices.map(price => parseFloat(price.replace('$', '')));
+      const sortedPrices = [...numericPrices].sort((a, b) => a - b);
+      expect(numericPrices).toEqual(sortedPrices);
+    });
+  });
+
+
+  test('Sort by Price (high to low)', async ({ mainPage }) => {
+    await test.step('Open product page', async () => {
+      await mainPage.goto();
+    });
+
+    await test.step('Select sort option Price (high to low)', async () => {
+      await mainPage.productSortContainer.selectOption({ label: 'Price (high to low)' });
+    });
+
+    await test.step('Verify product prices are sorted high to low', async () => {
+      const productPrices = await mainPage.page.$$eval(
+        '[data-test="inventory-item-price"]',
+        els => els.map(e => e.textContent?.trim() || '')
+      );
+      expect(productPrices.length).toBeGreaterThan(1);
+      const emptyPrices = productPrices.filter(price => price === '');
+      expect(emptyPrices, 'All product prices should be non-empty').toHaveLength(0);
+      const numericPrices = productPrices.map(price => parseFloat(price.replace('$', '')));
+      const sortedPrices = [...numericPrices].sort((a, b) => b - a);
+      expect(numericPrices).toEqual(sortedPrices);
+    });
+  });
 });
