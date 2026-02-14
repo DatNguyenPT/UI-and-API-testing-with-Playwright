@@ -1,10 +1,10 @@
 import { test, expect } from '../../fixtures/MainPage.fixture';
 import { logUI } from '../../utils/logger';
+import { products } from '../../fixtures/Products';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-test.describe('Product Page - SauceDemo', () => {
-
+test.describe('Product Page', () => {
   test('Verify components on product page', async ({ mainPage }) => {
     await mainPage.goto();
     const itemCount = await mainPage.inventoryItems.count();
@@ -24,8 +24,9 @@ test.describe('Product Page - SauceDemo', () => {
         'Price (high to low)',
     ]);
   });
+});
 
-
+test.describe('Filter', () => {
   test('Sort by Name (A to Z)', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
@@ -117,5 +118,32 @@ test.describe('Product Page - SauceDemo', () => {
       const sortedPrices = [...numericPrices].sort((a, b) => b - a);
       expect(numericPrices).toEqual(sortedPrices);
     });
+  });
+});
+
+test.describe('Cart Operations', () => {
+  test('Test add to cart button', async ({ mainPage }) => {
+    await test.step('Open product page', async () => {
+      await mainPage.goto();
+    });
+
+    const productName = products[Math.floor(Math.random() * products.length)];
+    logUI(`Randomly selected product: ${productName}`);
+    await mainPage.addToCartByName(productName);
+    expect(await mainPage.shoppingCartBadge.isVisible()).toBeTruthy();
+    expect(await mainPage.shoppingCartBadge.textContent()).toBe('1');
+  });
+
+  test('Test remove from cart button', async ({ mainPage }) => {
+    await test.step('Open product page', async () => {
+      await mainPage.goto();
+    });
+    const productName = products[Math.floor(Math.random() * products.length)];
+    logUI(`Randomly selected product: ${productName}`);
+    await mainPage.addToCartByName(productName);
+    expect(await mainPage.shoppingCartBadge.isVisible()).toBeTruthy();
+    expect(await mainPage.shoppingCartBadge.textContent()).toBe('1');
+    await mainPage.removeFromCartByName(productName);
+    expect(await mainPage.shoppingCartBadge.isVisible()).toBeFalsy();
   });
 });
