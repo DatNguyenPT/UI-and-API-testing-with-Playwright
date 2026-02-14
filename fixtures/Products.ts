@@ -1,4 +1,4 @@
-export const products = [
+export const products: readonly string[] = [
   'Sauce Labs Backpack',
   'Sauce Labs Bike Light',
   'Sauce Labs Bolt T-Shirt',

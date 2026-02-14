@@ -37,7 +37,7 @@ export class MainPage extends BasePage {
   }
 
   async removeFromCartByName(productName: string) {
-    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName }).first();
+    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
     const removeButton = productContainer.locator('button[data-test^="remove"]');
     logUI(`Removing product from cart: ${productName}`);
     await removeButton.click();

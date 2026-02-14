@@ -122,27 +122,36 @@ test.describe('Filter', () => {
 });
 
 test.describe('Cart Operations', () => {
-  test('Test add to cart button', async ({ mainPage }) => {
+  test('Add product to cart', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
-    const productName = products[1];
-    logUI(`Randomly selected product: ${productName}`);
-    await mainPage.addToCartByName(productName);
-    await expect(mainPage.shoppingCartBadge).toBeVisible();
-    await expect( mainPage.shoppingCartBadge).toHaveText('1')
+    await test.step('Add product to cart', async () => {
+      const productName = products[1];
+      logUI(`Randomly selected product: ${productName}`);
+      await mainPage.addToCartByName(productName);
+    });
+    await test.step('Verify cart badge', async () => {
+      await expect(mainPage.shoppingCartBadge).toBeVisible();
+      await expect(mainPage.shoppingCartBadge).toHaveText('1');
+    });
   });
 
-  test('Test remove from cart button', async ({ mainPage }) => {
+  test('Remove product from cart', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
-    const productName = products[1];
-    logUI(`Randomly selected product: ${productName}`);
-    await mainPage.addToCartByName(productName);
-    await expect(mainPage.shoppingCartBadge).toBeVisible();
-    await expect( mainPage.shoppingCartBadge).toHaveText('1')
-    await mainPage.removeFromCartByName(productName);
-    expect(await mainPage.shoppingCartBadge.isVisible()).toBeFalsy();
+    await test.step('Add product to cart', async () => {
+      const productName = products[1];
+      logUI(`Randomly selected product: ${productName}`);
+      await mainPage.addToCartByName(productName);
+      await expect(mainPage.shoppingCartBadge).toBeVisible();
+      await expect(mainPage.shoppingCartBadge).toHaveText('1');
+    });
+    await test.step('Remove product from cart', async () => {
+      const productName = products[1];
+      await mainPage.removeFromCartByName(productName);
+      expect(await mainPage.shoppingCartBadge).not.toBeVisible();
+    });
   });
 });
