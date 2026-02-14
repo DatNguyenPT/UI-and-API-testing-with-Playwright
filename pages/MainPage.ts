@@ -29,8 +29,27 @@ export class MainPage extends BasePage {
     await super.goto('/inventory.html');
   }
 
+  async viewProductDetailsByName(productName: string) {
+    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
+    const productLink = productContainer.locator('[data-test="inventory-item-name"]');
+    logUI(`Viewing details for product: ${productName}`);
+    await productLink.click();
+  }
+
+  async getProductDetailsByName(productName: string) {
+    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
+    const productLink = productContainer.locator('[data-test="inventory-item-name"]');
+    logUI(`Getting details for product: ${productName}`);
+    const details = {
+      name: await productLink.textContent(),
+      price: await productContainer.locator('[data-test="inventory-item-price"]').textContent(),
+      description: await productContainer.locator('[data-test="inventory-item-desc"]').textContent(),
+    };
+    return details;
+  }
+
   async addToCartByName(productName: string) {
-    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName }).first();
+    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
     const addToCartButton = productContainer.locator('button[data-test^="add-to-cart"]');
     logUI(`Adding product to cart: ${productName}`);
     await addToCartButton.click();
