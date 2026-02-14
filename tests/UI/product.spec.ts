@@ -1,10 +1,10 @@
 import { test, expect } from '../../fixtures/MainPage.fixture';
 import { logUI } from '../../utils/logger';
+import { products } from '../../fixtures/Products';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-test.describe('Product Page - SauceDemo', () => {
-
+test.describe('Product Page', () => {
   test('Verify components on product page', async ({ mainPage }) => {
     await mainPage.goto();
     const itemCount = await mainPage.inventoryItems.count();
@@ -24,8 +24,9 @@ test.describe('Product Page - SauceDemo', () => {
         'Price (high to low)',
     ]);
   });
+});
 
-
+test.describe('Filter', () => {
   test('Sort by Name (A to Z)', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
@@ -116,6 +117,41 @@ test.describe('Product Page - SauceDemo', () => {
       const numericPrices = productPrices.map(price => parseFloat(price.replace('$', '')));
       const sortedPrices = [...numericPrices].sort((a, b) => b - a);
       expect(numericPrices).toEqual(sortedPrices);
+    });
+  });
+});
+
+test.describe('Cart Operations', () => {
+  test('Add product to cart', async ({ mainPage }) => {
+    await test.step('Open product page', async () => {
+      await mainPage.goto();
+    });
+    await test.step('Add product to cart', async () => {
+      const productName = products[1];
+      logUI(`Randomly selected product: ${productName}`);
+      await mainPage.addToCartByName(productName);
+    });
+    await test.step('Verify cart badge', async () => {
+      await expect(mainPage.shoppingCartBadge).toBeVisible();
+      await expect(mainPage.shoppingCartBadge).toHaveText('1');
+    });
+  });
+
+  test('Remove product from cart', async ({ mainPage }) => {
+    await test.step('Open product page', async () => {
+      await mainPage.goto();
+    });
+    await test.step('Add product to cart', async () => {
+      const productName = products[1];
+      logUI(`Randomly selected product: ${productName}`);
+      await mainPage.addToCartByName(productName);
+      await expect(mainPage.shoppingCartBadge).toBeVisible();
+      await expect(mainPage.shoppingCartBadge).toHaveText('1');
+    });
+    await test.step('Remove product from cart', async () => {
+      const productName = products[1];
+      await mainPage.removeFromCartByName(productName);
+      expect(await mainPage.shoppingCartBadge).not.toBeVisible();
     });
   });
 });
