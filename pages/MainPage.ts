@@ -1,7 +1,6 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { logUI } from '../utils/logger';
-import { log } from 'node:console';
 
 export class MainPage extends BasePage {
   readonly inventoryList: Locator;

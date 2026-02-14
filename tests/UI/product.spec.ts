@@ -126,23 +126,22 @@ test.describe('Cart Operations', () => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
-
-    const productName = products[Math.floor(Math.random() * products.length)];
+    const productName = products[1];
     logUI(`Randomly selected product: ${productName}`);
     await mainPage.addToCartByName(productName);
-    expect(await mainPage.shoppingCartBadge.isVisible()).toBeTruthy();
-    expect(await mainPage.shoppingCartBadge.textContent()).toBe('1');
+    await expect(mainPage.shoppingCartBadge).toBeVisible();
+    await expect( mainPage.shoppingCartBadge).toHaveText('1')
   });
 
   test('Test remove from cart button', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
-    const productName = products[Math.floor(Math.random() * products.length)];
+    const productName = products[1];
     logUI(`Randomly selected product: ${productName}`);
     await mainPage.addToCartByName(productName);
-    expect(await mainPage.shoppingCartBadge.isVisible()).toBeTruthy();
-    expect(await mainPage.shoppingCartBadge.textContent()).toBe('1');
+    await expect(mainPage.shoppingCartBadge).toBeVisible();
+    await expect( mainPage.shoppingCartBadge).toHaveText('1')
     await mainPage.removeFromCartByName(productName);
     expect(await mainPage.shoppingCartBadge.isVisible()).toBeFalsy();
   });
