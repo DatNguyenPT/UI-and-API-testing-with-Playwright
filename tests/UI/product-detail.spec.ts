@@ -1,4 +1,5 @@
 import { test, expect } from "../../fixtures/MainPage.fixture";
+import { ProductDetailPage } from "../../pages/ProductDetail";
 import { logUI } from "../../utils/logger";
 import { products } from "../../fixtures/Products";
 import * as dotenv from "dotenv";
@@ -15,13 +16,15 @@ test.describe("Access To A Product Detail Page", () => {
       await mainPage.viewProductDetailsByName(productName);
     });
     await test.step("Verify product detail page is displayed", async () => {
-      const itemCount = await mainPage.inventoryItems.count();
+      const itemCount = await mainPage.productContainer.count();
       logUI("Number of products displayed:", itemCount);
       expect(itemCount).toBe(1);
       const displayedProductName = await mainPage.page.locator('[data-test="inventory-item-name"]').textContent();
       expect(displayedProductName?.trim()).toBe(products[1]);
     });
   });
+
+
   test("Direct access to product detail page", async ({ mainPage }) => {
     let productDetails: { name?: string | null; price?: string | null; description?: string | null };
     
@@ -45,3 +48,52 @@ test.describe("Access To A Product Detail Page", () => {
     });
   });
 });
+
+test.describe("Add and Remove from Cart", () => {
+    test("Add to cart from product detail page", async ({ mainPage }) => {
+      const productDetailPage = new ProductDetailPage(mainPage.page);
+      
+      await test.step("Open product page", async () => {
+        await mainPage.goto();
+      });
+      await test.step("View product details", async () => {
+        const productName = products[1];
+        logUI(`Randomly selected product: ${productName}`);
+        await mainPage.viewProductDetailsByName(productName);
+      });
+      await test.step("Add product to cart", async () => {
+        await productDetailPage.addToCart();
+      });
+      await test.step("Verify product is added to cart", async () => {
+        await expect(productDetailPage.shoppingCartBadge).toHaveText("1");
+      });
+      await test.step("Remove product from cart", async () => {
+        await productDetailPage.removeFromCart();
+      });
+      await test.step("Verify product is removed from cart", async () => {
+        await expect(productDetailPage.shoppingCartBadge).not.toBeVisible();
+      });
+  });
+});
+
+test.describe("Back to Products", () => {
+  test("Navigate back to products from product detail page", async ({ mainPage }) => {
+    const productDetailPage = new ProductDetailPage(mainPage.page);
+    
+    await test.step("Open product page", async () => {
+      await mainPage.goto();
+    });
+    await test.step("View product details", async () => {
+      const productName = products[1];
+      logUI(`Randomly selected product: ${productName}`);
+      await mainPage.viewProductDetailsByName(productName);
+    });
+    await test.step("Navigate back to products", async () => {
+      await productDetailPage.backToProducts();
+    });
+    await test.step("Verify navigation back to products", async () => {
+      expect(mainPage.page.url()).toContain("/inventory.html");
+    });
+  });
+});
+

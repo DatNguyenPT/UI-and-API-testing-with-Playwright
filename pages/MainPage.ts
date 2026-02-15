@@ -4,7 +4,7 @@ import { logUI } from '../utils/logger';
 
 export class MainPage extends BasePage {
   readonly inventoryList: Locator;
-  readonly inventoryItems: Locator;
+  readonly productContainer: Locator;
   readonly shoppingCartLink: Locator
   readonly burgerMenuButton: Locator
   readonly title: Locator
@@ -15,7 +15,7 @@ export class MainPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.inventoryList = page.locator('[data-test="inventory-list"]');
-    this.inventoryItems = page.locator('[data-test="inventory-item"]');
+    this.productContainer = page.locator('[data-test="inventory-item"]');
     this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]');
     this.burgerMenuButton = page.locator('#react-burger-menu-btn');
     this.title = page.locator('[data-test="title"]');
@@ -30,33 +30,35 @@ export class MainPage extends BasePage {
   }
 
   async viewProductDetailsByName(productName: string) {
-    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
-    const productLink = productContainer.locator('[data-test="inventory-item-name"]');
+    const productContainer = this.productContainer.filter({ hasText: productName });
+    const productTitle = productContainer.locator('[data-test="inventory-item-name"]');
     logUI(`Viewing details for product: ${productName}`);
-    await productLink.click();
+    await productTitle.filter({ hasText: productName }).click();
   }
 
   async getProductDetailsByName(productName: string) {
-    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
-    const productLink = productContainer.locator('[data-test="inventory-item-name"]');
+    const productContainer = this.productContainer.filter({ hasText: productName });
+    const productTitle = productContainer.locator('[data-test="inventory-item-name"]');
+    const price = productContainer.locator('[data-test="inventory-item-price"]');
+    const description = productContainer.locator('[data-test="inventory-item-desc"]');
     logUI(`Getting details for product: ${productName}`);
     const details = {
-      name: await productLink.textContent(),
-      price: await productContainer.locator('[data-test="inventory-item-price"]').textContent(),
-      description: await productContainer.locator('[data-test="inventory-item-desc"]').textContent(),
+      name: await productTitle.textContent(),
+      price: await price.textContent(),
+      description: await description.textContent(),
     };
     return details;
   }
 
   async addToCartByName(productName: string) {
-    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
+    const productContainer = this.productContainer.filter({ hasText: productName });
     const addToCartButton = productContainer.locator('button[data-test^="add-to-cart"]');
     logUI(`Adding product to cart: ${productName}`);
     await addToCartButton.click();
   }
 
   async removeFromCartByName(productName: string) {
-    const productContainer = this.page.locator('[data-test="inventory-item"]', { hasText: productName })
+    const productContainer = this.productContainer.filter({ hasText: productName });
     const removeButton = productContainer.locator('button[data-test^="remove"]');
     logUI(`Removing product from cart: ${productName}`);
     await removeButton.click();
