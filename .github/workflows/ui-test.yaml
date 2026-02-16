@@ -100,3 +100,23 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           keep_files: true
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [ui-tests, publish-report]
+    if: always()
+
+    steps:
+      - name: Discord Notification
+        uses: tsickert/discord-webhook@v7.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: "🎭 UI Tests - ${{ needs.ui-tests.result == 'success' && '✅ Passed' || '❌ Failed' }}"
+          embed-description: |
+            **Repository:** ${{ github.repository }}
+            **Branch:** ${{ github.ref_name }}
+            **Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+            **Triggered by:** ${{ github.actor }}
+            
+            📊 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/ui/)
+          embed-color: ${{ needs.ui-tests.result == 'success' && '3066993' || '15158332' }}
