@@ -1,7 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+// Load .env from project root
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const sauceDemoBaseURL = 'https://www.saucedemo.com';
-const apiBaseURL = 'https://fakestoreapi.com';
+const apiBaseURL = 'https://dummyjson.com';
 
 export default defineConfig({
   testDir: './tests',
