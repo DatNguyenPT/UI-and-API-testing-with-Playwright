@@ -1,0 +1,12 @@
+[2026-02-16T08:55:24.183Z] [ui] Navigating to /
+[2026-02-16T08:55:24.451Z] [ui] Logging in with username: standard_user
+[2026-02-16T08:55:24.821Z] [ui] Navigating to /
+[2026-02-16T08:55:24.946Z] [ui] Logging in with username: standard_user
+[2026-02-16T08:55:25.220Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T08:55:25.220Z] [ui] Navigating to /inventory.html
+[2026-02-16T08:55:25.356Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T08:55:25.598Z] [ui] Adding product to cart: Sauce Labs Bike Light
+[2026-02-16T08:55:25.680Z] [ui] Adding product to cart: Sauce Labs Bolt T-Shirt
+[2026-02-16T08:55:25.757Z] [ui] Navigating to Cart Page
+[2026-02-16T08:55:25.757Z] [ui] Navigating to /cart.html
+[2026-02-16T08:55:25.926Z] [ui] Cart has 3 items

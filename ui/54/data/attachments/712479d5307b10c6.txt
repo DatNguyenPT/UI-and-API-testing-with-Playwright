@@ -1,0 +1,11 @@
+[2026-02-16T08:55:14.291Z] [ui] Navigating to /
+[2026-02-16T08:55:14.562Z] [ui] Logging in with username: standard_user
+[2026-02-16T08:55:14.810Z] [ui] Navigating to /
+[2026-02-16T08:55:14.932Z] [ui] Logging in with username: standard_user
+[2026-02-16T08:55:15.104Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T08:55:15.104Z] [ui] Navigating to /inventory.html
+[2026-02-16T08:55:15.224Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T08:55:15.293Z] [ui] Navigating to Cart Page
+[2026-02-16T08:55:15.294Z] [ui] Navigating to /cart.html
+[2026-02-16T08:55:15.381Z] [ui] Cart has 1 items
+[2026-02-16T08:55:15.382Z] [ui] Removing from cart: Sauce Labs Backpack
