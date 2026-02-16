@@ -1,0 +1,109 @@
+name: Scheduled Regression Tests
+
+on:
+  schedule:
+    # Run daily at 6:00 AM UTC (off-peak hours)
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  regression-ui:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [ui-chromium, ui-firefox, ui-webkit]
+
+    env:
+      SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
+      SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
+      SAUCEDEMO_INVALID_USERNAME: ${{ secrets.SAUCEDEMO_INVALID_USERNAME }}
+      SAUCEDEMO_INVALID_PASSWORD: ${{ secrets.SAUCEDEMO_INVALID_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Regression Tests
+        run: npm run test:ui:regression -- --project=${{ matrix.browser }}
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-regression-${{ matrix.browser }}
+          path: allure-results
+
+  regression-api:
+    runs-on: ubuntu-latest
+
+    env:
+      FAKESTOREAPI_USERNAME: ${{ secrets.FAKESTOREAPI_USERNAME }}
+      FAKESTOREAPI_PASSWORD: ${{ secrets.FAKESTOREAPI_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run API Regression Tests
+        run: npm run test:api:smoke
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-regression-api
+          path: allure-results
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [regression-ui, regression-api]
+    if: always()
+
+    steps:
+      - name: Discord Notification - Scheduled Regression
+        uses: tsickert/discord-webhook@v7.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: "📅 Scheduled Regression - ${{ needs.regression-ui.result == 'success' && needs.regression-api.result == 'success' && '✅ Passed' || '❌ Failed' }}"
+          embed-description: |
+            **Trigger:** Scheduled Daily Run
+            **Time:** ${{ github.event.head_commit.timestamp || 'Scheduled' }}
+            
+            **UI Tests:** ${{ needs.regression-ui.result }}
+            **API Tests:** ${{ needs.regression-api.result }}
+            
+            📊 [View Reports](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)
+          embed-color: ${{ needs.regression-ui.result == 'success' && needs.regression-api.result == 'success' && '3066993' || '15158332' }}

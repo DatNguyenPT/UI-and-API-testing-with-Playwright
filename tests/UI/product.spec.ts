@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 test.describe('Product Page', () => {
-  test('Verify components on product page', async ({ mainPage }) => {
+  test('@smoke Verify components on product page', async ({ mainPage }) => {
     await mainPage.goto();
     const itemCount = await mainPage.productContainer.count();
     logUI('Number of products displayed:', itemCount);
@@ -27,7 +27,7 @@ test.describe('Product Page', () => {
 });
 
 test.describe('Filter', () => {
-  test('Sort by Name (A to Z)', async ({ mainPage }) => {
+  test('@regression Sort by Name (A to Z)', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
@@ -50,7 +50,7 @@ test.describe('Filter', () => {
   });
 
 
-  test('Sort by Name (Z to A)', async ({ mainPage }) => {
+  test('@regression Sort by Name (Z to A)', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
@@ -73,7 +73,7 @@ test.describe('Filter', () => {
   });
 
 
-  test('Sort by Price (low to high)', async ({ mainPage }) => {
+  test('@regression Sort by Price (low to high)', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
@@ -97,7 +97,7 @@ test.describe('Filter', () => {
   });
 
 
-  test('Sort by Price (high to low)', async ({ mainPage }) => {
+  test('@regression Sort by Price (high to low)', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
@@ -122,7 +122,7 @@ test.describe('Filter', () => {
 });
 
 test.describe('Cart Operations', () => {
-  test('Add product to cart', async ({ mainPage }) => {
+  test('@smoke @critical Add product to cart', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });
@@ -137,7 +137,7 @@ test.describe('Cart Operations', () => {
     });
   });
 
-  test('Remove product from cart', async ({ mainPage }) => {
+  test('@regression @critical Remove product from cart', async ({ mainPage }) => {
     await test.step('Open product page', async () => {
       await mainPage.goto();
     });

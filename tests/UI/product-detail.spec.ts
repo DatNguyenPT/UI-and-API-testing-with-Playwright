@@ -6,7 +6,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 test.describe("Access To A Product Detail Page", () => {
-  test("Access to product detail page", async ({ mainPage }) => {
+  test("@smoke Access to product detail page", async ({ mainPage }) => {
     await test.step("Open product page", async () => {
       await mainPage.goto();
     });
@@ -25,7 +25,7 @@ test.describe("Access To A Product Detail Page", () => {
   });
 
 
-  test("Direct access to product detail page", async ({ mainPage }) => {
+  test("@regression Direct access to product detail page", async ({ mainPage }) => {
     let productDetails: { name?: string | null; price?: string | null; description?: string | null };
     
     await test.step("Open product page", async () => {
@@ -50,7 +50,7 @@ test.describe("Access To A Product Detail Page", () => {
 });
 
 test.describe("Add and Remove from Cart", () => {
-    test("Add to cart from product detail page", async ({ mainPage }) => {
+    test("@smoke @critical Add to cart from product detail page", async ({ mainPage }) => {
       const productDetailPage = new ProductDetailPage(mainPage.page);
       
       await test.step("Open product page", async () => {
@@ -77,7 +77,7 @@ test.describe("Add and Remove from Cart", () => {
 });
 
 test.describe("Back to Products", () => {
-  test("Navigate back to products from product detail page", async ({ mainPage }) => {
+  test("@regression Navigate back to products from product detail page", async ({ mainPage }) => {
     const productDetailPage = new ProductDetailPage(mainPage.page);
     
     await test.step("Open product page", async () => {

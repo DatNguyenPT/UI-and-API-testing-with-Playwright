@@ -13,7 +13,7 @@ async function errorExpectation(loginPage: any, missingCredentialMessage: string
 
 test.describe('Login - SauceDemo', () => {
 
-  test('Login successfully with valid credentials', async ({ loginPage }) => {
+  test('@smoke @critical Login successfully with valid credentials', async ({ loginPage }) => {
     const username:string = process.env.SAUCEDEMO_USERNAME!;
     const password:string = process.env.SAUCEDEMO_PASSWORD!;
     await test.step('Go to login page', async () => {
@@ -38,7 +38,7 @@ test.describe('Login - SauceDemo', () => {
 // Parallel fail login tests
 test.describe.parallel('Login with invalid credentials', () => {
 
-  test('Login fails with invalid credentials', async ({ loginPage }) => {
+  test('@regression Login fails with invalid credentials', async ({ loginPage }) => {
     const invalidUsername:string = process.env.SAUCEDEMO_INVALID_USERNAME!;
     const invalidPassword:string = process.env.SAUCEDEMO_INVALID_PASSWORD!;
     await test.step('Go to login page', async () => {
@@ -52,7 +52,7 @@ test.describe.parallel('Login with invalid credentials', () => {
     });
   });
 
-  test('Login with empty username and password', async ({ loginPage }) => {
+  test('@regression Login with empty username and password', async ({ loginPage }) => {
     await test.step('Go to login page', async () => {
       await loginPage.goto();
     });
@@ -64,7 +64,7 @@ test.describe.parallel('Login with invalid credentials', () => {
     });
   });
 
-  test('Login with empty username only', async ({ loginPage }) => {
+  test('@regression Login with empty username only', async ({ loginPage }) => {
     const password:string = process.env.SAUCEDEMO_PASSWORD!;
     await test.step('Go to login page', async () => {
       await loginPage.goto();
@@ -77,7 +77,7 @@ test.describe.parallel('Login with invalid credentials', () => {
     });
   });
   
-  test('Login with empty password only', async ({ loginPage }) => {
+  test('@regression Login with empty password only', async ({ loginPage }) => {
     const username:string = process.env.SAUCEDEMO_USERNAME!;
     await test.step('Go to login page', async () => {
       await loginPage.goto();

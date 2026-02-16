@@ -1,0 +1,72 @@
+name: PR Smoke Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  smoke-tests:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [ui-chromium]  # Only Chrome for fast PR checks
+
+    env:
+      SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
+      SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
+      SAUCEDEMO_INVALID_USERNAME: ${{ secrets.SAUCEDEMO_INVALID_USERNAME }}
+      SAUCEDEMO_INVALID_PASSWORD: ${{ secrets.SAUCEDEMO_INVALID_PASSWORD }}
+      FAKESTOREAPI_USERNAME: ${{ secrets.FAKESTOREAPI_USERNAME }}
+      FAKESTOREAPI_PASSWORD: ${{ secrets.FAKESTOREAPI_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Smoke Tests
+        run: npm run test:smoke -- --project=${{ matrix.browser }}
+
+      - name: Upload Playwright Report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-pr-${{ github.event.pull_request.number }}
+          path: playwright-report
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: smoke-tests
+    if: failure()
+
+    steps:
+      - name: Discord Notification - PR Failed
+        uses: tsickert/discord-webhook@v7.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          embed-title: "🔴 PR Smoke Tests Failed"
+          embed-description: |
+            **PR:** #${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}
+            **Author:** ${{ github.event.pull_request.user.login }}
+            **Branch:** ${{ github.head_ref }} → ${{ github.base_ref }}
+            
+            ⚠️ Please fix failing tests before merging.
+          embed-color: "15158332"

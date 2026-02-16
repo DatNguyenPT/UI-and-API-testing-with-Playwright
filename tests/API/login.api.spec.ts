@@ -6,7 +6,7 @@ dotenv.config();
 
 test.describe('API Login - Mock', () => {
 
-  test('Login success', async ({ authAPI }) => {
+  test('@smoke @critical Login success', async ({ authAPI }) => {
     const credentials = { username: process.env.FAKESTOREAPI_USERNAME, password: process.env.FAKESTOREAPI_PASSWORD };
 
     await test.step('Login with valid credentials', async () => {
@@ -26,7 +26,7 @@ test.describe('API Login - Mock', () => {
     });
   });
 
-  test('Login failed - missing password', async ({ authAPI }) => {
+  test('@regression Login failed - missing password', async ({ authAPI }) => {
     const credentials = { username: process.env.FAKESTOREAPI_USERNAME }; // No password provided
 
     await test.step('Login with missing password', async () => {

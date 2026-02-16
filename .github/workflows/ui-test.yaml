@@ -2,6 +2,11 @@ name: UI Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      shards:
+        description: 'Number of shards'
+        required: false
+        default: '3'
   push:
     branches:
       - main
@@ -12,14 +17,17 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         browser: [ui-chromium, ui-firefox, ui-webkit]
+        shard: [1, 2, 3]
 
     env:
       SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
       SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
       SAUCEDEMO_INVALID_USERNAME: ${{ secrets.SAUCEDEMO_INVALID_USERNAME }}
       SAUCEDEMO_INVALID_PASSWORD: ${{ secrets.SAUCEDEMO_INVALID_PASSWORD }}
+      TOTAL_SHARDS: 3
 
     steps:
       - uses: actions/checkout@v4
@@ -41,21 +49,21 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run UI tests
-        run: npx playwright test UI/ --project=${{ matrix.browser }}
+      - name: Run UI tests (Shard ${{ matrix.shard }}/${{ env.TOTAL_SHARDS }})
+        run: npx playwright test UI/ --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/${{ env.TOTAL_SHARDS }}
 
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.browser }}
+          name: playwright-report-${{ matrix.browser }}-shard-${{ matrix.shard }}
           path: playwright-report
 
       - name: Upload Allure Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.browser }}
+          name: allure-results-${{ matrix.browser }}-shard-${{ matrix.shard }}
           path: allure-results
 
   publish-report:
@@ -118,5 +126,5 @@ jobs:
             **Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
             **Triggered by:** ${{ github.actor }}
             
-            📊 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }})
+            📊 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/ui/)
           embed-color: ${{ needs.ui-tests.result == 'success' && '3066993' || '15158332' }}
