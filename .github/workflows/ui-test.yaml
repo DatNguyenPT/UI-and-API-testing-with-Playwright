@@ -88,8 +88,8 @@ jobs:
       - name: Build Allure Report
         uses: simple-elf/allure-report-action@master
         with:
-          gh_pages: gh-pages/ui
-          allure_history: allure-history/ui
+          gh_pages: gh-pages
+          allure_history: allure-history
           allure_results: allure-results
           subfolder: ui
 
@@ -118,5 +118,5 @@ jobs:
             **Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
             **Triggered by:** ${{ github.actor }}
             
-            📊 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/ui/)
+            📊 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }})
           embed-color: ${{ needs.ui-tests.result == 'success' && '3066993' || '15158332' }}
