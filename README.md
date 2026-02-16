@@ -2,9 +2,10 @@
 
 This repository contains an automation testing project built with **Playwright** using **TypeScript**, covering:
 
-- ✅ UI automation testing (Login flow)
-- ✅ API automation testing (FakeStore API – local only)
-- ✅ CI pipeline with GitHub Actions (UI tests)
+- ✅ UI automation testing (SauceDemo - Login, Products, Cart, Checkout)
+- ✅ API automation testing (DummyJSON - Auth, Users, Products)
+- ✅ CI/CD with GitHub Actions (Allure reports, Discord notifications)
+- ✅ Docker containerization for consistent test execution
 
 The project is designed with **SDET / Test Engineer best practices** in mind.
 
@@ -12,11 +13,13 @@ The project is designed with **SDET / Test Engineer best practices** in mind.
 
 ## Tech Stack
 
-- **Playwright**
-- **TypeScript**
-- **Node.js**
-- **GitHub Actions** (CI)
-- **dotenv** (environment variables)
+- **Playwright** - Browser automation
+- **TypeScript** - Type-safe testing
+- **Node.js** - Runtime environment
+- **GitHub Actions** - CI/CD pipeline
+- **Docker** - Containerized test execution
+- **Allure** - Test reporting
+- **dotenv** - Environment variables
 
 ---
 
@@ -24,45 +27,161 @@ The project is designed with **SDET / Test Engineer best practices** in mind.
 
 ```
 ├── 📁 .github
+│   ├── 📁 pages
+│   │   └── 📄 index.html          # Allure landing page
 │   └── 📁 workflows
-│       └── ⚙️ playwright.yaml
+│       ├── ⚙️ ui-test.yaml        # UI tests workflow
+│       ├── ⚙️ api-test.yaml       # API tests workflow
+│       ├── ⚙️ pr-check.yaml       # PR smoke tests
+│       └── ⚙️ scheduled-regression.yaml
+├── 📁 api
+│   ├── 📄 BaseApi.ts              # Base API class
+│   ├── 📄 AuthApi.ts              # Auth endpoints
+│   ├── 📄 UsersApi.ts             # Users endpoints
+│   ├── 📄 ProductsApi.ts          # Products endpoints
+│   └── 📄 StatusCode.ts           # HTTP status codes
 ├── 📁 fixtures
-│   ├── 📄 api-endpoint.fixture.ts
-│   └── 📄 login.fixture.ts
+│   ├── 📄 APIEndpoints.fixture.ts
+│   ├── 📄 Cart.fixture.ts
+│   ├── 📄 login.fixture.ts
+│   └── 📄 MainPage.fixture.ts
 ├── 📁 pages
-│   └── 📄 LoginPage.ts
+│   ├── 📄 BasePage.ts
+│   ├── 📄 LoginPage.ts
+│   ├── 📄 MainPage.ts
+│   ├── 📄 CartPage.ts
+│   ├── 📄 CheckoutStepOnePage.ts
+│   ├── 📄 CheckoutStepTwoPage.ts
+│   └── 📄 CheckoutCompletePage.ts
 ├── 📁 tests
 │   ├── 📁 API
-│   │   └── 📄 login.api.spec.ts
+│   │   ├── 📄 login.api.spec.ts
+│   │   ├── 📄 users.api.spec.ts
+│   │   └── 📄 products.api.spec.ts
 │   └── 📁 UI
-│       └── 📄 login.spec.ts
+│       ├── 📄 login.spec.ts
+│       ├── 📄 product.spec.ts
+│       ├── 📄 product-detail.spec.ts
+│       ├── 📄 cart.spec.ts
+│       └── 📄 checkout.spec.ts
 ├── 📁 utils
 │   └── 📄 logger.ts
-├── ⚙️ .gitignore
-├── 📝 README.md
-├── ⚙️ package-lock.json
-├── ⚙️ package.json
-└── 📄 playwright.config.ts
+├── 🐳 Dockerfile
+├── 🐳 docker-compose.yml
+├── ⚙️ playwright.config.ts
+└── 📝 README.md
 ```
-## Prerequisites
-
-- Node.js **v18+**
-- npm or yarn
-- Git
-- Playwright
 
 ---
 
-## Run tests
-Run all tests
+## Prerequisites
+
+- Node.js **v18+**
+- npm
+- Git
+- Docker (optional, for containerized runs)
+
+---
+
+## Installation
+
 ```bash
-npx playwright test
+# Clone the repository
+git clone https://github.com/DatNguyenPT/UI-and-API-testing-with-Playwright.git
+cd UI-and-API-testing-with-Playwright
+
+# Install dependencies
+npm install
+
+# Install Playwright browsers
+npx playwright install --with-deps
+
+# Copy environment variables
+cp .env
 ```
-Run UI tests only
+
+---
+
+## Run Tests Locally
+
 ```bash
-npx playwright test tests/ui
+# Run all tests
+npm test
+
+# Run UI tests only
+npm run test:ui
+
+# Run API tests only
+npm run test:api
+
+# Run smoke tests
+npm run test:smoke
+
+# Run regression tests
+npm run test:regression
+
+# Run tests in headed mode
+npm run test:headed
 ```
-Run API tests only
+
+---
+
+## Run Tests with Docker
+
 ```bash
-npx playwright test api
+# Build Docker image
+npm run docker:build
+
+# Run UI tests in container
+npm run docker:ui
+
+# Run UI smoke tests in container
+npm run docker:ui:smoke
+
+# Run API tests in container
+npm run docker:api
+
+# Run all tests in container
+npm run docker:all
+
+# Start Allure report server (http://localhost:5050)
+npm run docker:allure
 ```
+
+---
+
+## Test Reports
+
+### Playwright HTML Report
+```bash
+npm run report
+```
+
+### Allure Report
+```bash
+npm run allure:generate
+npm run allure:open
+```
+
+### GitHub Pages Reports
+- **UI Tests:** https://datnguyenpt.github.io/UI-and-API-testing-with-Playwright/ui/
+- **API Tests:** https://datnguyenpt.github.io/UI-and-API-testing-with-Playwright/api/
+
+---
+
+## CI/CD Workflows
+
+| Workflow | Trigger | Description |
+|----------|---------|-------------|
+| UI Tests | Push to main/master | Full UI test suite with 3 browsers × 3 shards |
+| API Tests | Push to main/master | Full API test suite |
+| PR Smoke Tests | Pull requests | Fast smoke tests for PR validation |
+| Scheduled Regression | Daily 6AM UTC | Full regression suite |
+
+---
+
+## Test Tags
+
+- `@smoke` - Quick validation tests
+- `@regression` - Full test coverage
+- `@critical` - Business-critical flows

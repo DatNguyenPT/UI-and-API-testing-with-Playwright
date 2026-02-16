@@ -15,7 +15,13 @@
     "test:headed": "npx playwright test --headed",
     "report": "npx playwright show-report",
     "allure:generate": "npx allure generate allure-results --clean -o allure-report",
-    "allure:open": "npx allure open allure-report"
+    "allure:open": "npx allure open allure-report",
+    "docker:build": "docker build -t playwright-tests .",
+    "docker:ui": "docker-compose run --rm ui-tests",
+    "docker:ui:smoke": "docker-compose run --rm ui-smoke",
+    "docker:api": "docker-compose run --rm api-tests",
+    "docker:all": "docker-compose run --rm all-tests",
+    "docker:allure": "docker-compose up allure-report"
   },
   "keywords": [],
   "author": "",

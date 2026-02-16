@@ -1,0 +1,72 @@
+services:
+  # Run all UI tests
+  ui-tests:
+    build: .
+    command: npx playwright test --project=ui-chromium --project=ui-firefox --project=ui-webkit
+    environment:
+      - CI=true
+      - SAUCEDEMO_USERNAME=${SAUCEDEMO_USERNAME}
+      - SAUCEDEMO_PASSWORD=${SAUCEDEMO_PASSWORD}
+      - SAUCEDEMO_INVALID_USERNAME=${SAUCEDEMO_INVALID_USERNAME}
+      - SAUCEDEMO_INVALID_PASSWORD=${SAUCEDEMO_INVALID_PASSWORD}
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./test-results:/app/test-results
+
+  # Run UI smoke tests only
+  ui-smoke:
+    build: .
+    command: npx playwright test --grep @smoke --project=ui-chromium
+    environment:
+      - CI=true
+      - SAUCEDEMO_USERNAME=${SAUCEDEMO_USERNAME}
+      - SAUCEDEMO_PASSWORD=${SAUCEDEMO_PASSWORD}
+      - SAUCEDEMO_INVALID_USERNAME=${SAUCEDEMO_INVALID_USERNAME}
+      - SAUCEDEMO_INVALID_PASSWORD=${SAUCEDEMO_INVALID_PASSWORD}
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./test-results:/app/test-results
+
+  # Run all API tests
+  api-tests:
+    build: .
+    command: npx playwright test --project=api
+    environment:
+      - CI=true
+      - DUMMYJSON_USERNAME=${DUMMYJSON_USERNAME}
+      - DUMMYJSON_PASSWORD=${DUMMYJSON_PASSWORD}
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./test-results:/app/test-results
+
+  # Run all tests (UI + API)
+  all-tests:
+    build: .
+    command: npx playwright test
+    environment:
+      - CI=true
+      - SAUCEDEMO_USERNAME=${SAUCEDEMO_USERNAME}
+      - SAUCEDEMO_PASSWORD=${SAUCEDEMO_PASSWORD}
+      - SAUCEDEMO_INVALID_USERNAME=${SAUCEDEMO_INVALID_USERNAME}
+      - SAUCEDEMO_INVALID_PASSWORD=${SAUCEDEMO_INVALID_PASSWORD}
+      - DUMMYJSON_USERNAME=${DUMMYJSON_USERNAME}
+      - DUMMYJSON_PASSWORD=${DUMMYJSON_PASSWORD}
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./test-results:/app/test-results
+
+  # Generate Allure report
+  allure-report:
+    image: frankescobar/allure-docker-service
+    ports:
+      - "5050:5050"
+    environment:
+      - CHECK_RESULTS_EVERY_SECONDS=3
+      - KEEP_HISTORY=1
+    volumes:
+      - ./allure-results:/app/allure-results
+      - ./allure-reports:/app/default-reports

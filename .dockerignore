@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Test outputs
+playwright-report/
+allure-results/
+allure-reports/
+test-results/
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Misc
+*.log
+*.md
+.env
+.env.local
