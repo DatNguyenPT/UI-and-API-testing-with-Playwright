@@ -89,7 +89,9 @@ jobs:
           subfolder: ui
 
       - name: Copy landing page
-        run: cp .github/pages/index.html allure-history/index.html
+        run: |
+          mkdir -p allure-history
+          cp .github/pages/index.html allure-history/index.html
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
