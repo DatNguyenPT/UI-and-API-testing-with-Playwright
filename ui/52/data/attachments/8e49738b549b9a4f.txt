@@ -1,0 +1,13 @@
+[2026-02-16T07:36:39.638Z] [ui] Navigating to /
+[2026-02-16T07:36:40.039Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:36:40.297Z] [ui] Navigating to /
+[2026-02-16T07:36:40.532Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:36:40.704Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:36:40.705Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:36:41.044Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T07:36:41.153Z] [ui] Navigating to Cart Page
+[2026-02-16T07:36:41.153Z] [ui] Navigating to /cart.html
+[2026-02-16T07:36:41.515Z] [ui] Proceeding to Checkout
+[2026-02-16T07:36:41.682Z] [ui] Filling user info: Test , 12345
+[2026-02-16T07:36:41.748Z] [ui] Clicking Continue
+[2026-02-16T07:36:41.878Z] [ui] Error message: Error: Last Name is required

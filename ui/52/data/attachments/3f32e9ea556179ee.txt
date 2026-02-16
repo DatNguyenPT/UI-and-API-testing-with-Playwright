@@ -1,0 +1,7 @@
+[2026-02-16T07:36:37.242Z] [ui] Navigating to /
+[2026-02-16T07:36:37.648Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:36:38.034Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:36:38.034Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:36:38.275Z] [ui] Getting details for product: Sauce Labs Bike Light
+[2026-02-16T07:36:38.393Z] [ui] Product details: {"name":"Sauce Labs Bike Light","price":"$9.99","description":"A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included."}
+[2026-02-16T07:36:38.393Z] [ui] Viewing details for product: Sauce Labs Bike Light
