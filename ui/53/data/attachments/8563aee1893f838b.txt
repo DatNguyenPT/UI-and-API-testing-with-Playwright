@@ -1,0 +1,13 @@
+[2026-02-16T07:43:11.050Z] [ui] Navigating to /
+[2026-02-16T07:43:11.265Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:43:11.468Z] [ui] Navigating to /
+[2026-02-16T07:43:11.549Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:43:11.691Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:43:11.691Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:43:11.807Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T07:43:11.866Z] [ui] Navigating to Cart Page
+[2026-02-16T07:43:11.866Z] [ui] Navigating to /cart.html
+[2026-02-16T07:43:11.921Z] [ui] Proceeding to Checkout
+[2026-02-16T07:43:12.007Z] [ui] Filling user info:  User, 12345
+[2026-02-16T07:43:12.081Z] [ui] Clicking Continue
+[2026-02-16T07:43:12.148Z] [ui] Error message: Error: First Name is required

@@ -1,0 +1,4 @@
+[2026-02-16T07:43:26.906Z] [ui] Navigating to /
+[2026-02-16T07:43:27.337Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:43:28.464Z] [ui] Navigating to Cart Page
+[2026-02-16T07:43:28.465Z] [ui] Navigating to /cart.html
