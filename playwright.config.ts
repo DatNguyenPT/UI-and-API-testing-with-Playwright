@@ -14,6 +14,23 @@ export default defineConfig({
   retries: 1,
   workers: 2,
 
+  // Visual regression snapshot settings
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixels: 100,           // Allow small pixel differences
+      maxDiffPixelRatio: 0.01,      // 1% pixel difference threshold
+      threshold: 0.2,               // Color threshold (0-1)
+      animations: 'disabled',       // Disable animations for consistency
+    },
+    toMatchSnapshot: {
+      maxDiffPixelRatio: 0.01,
+    },
+  },
+
+  // Snapshot output directory
+  snapshotDir: './snapshots',
+  snapshotPathTemplate: '{snapshotDir}/{testFilePath}/{arg}{ext}',
+
   reporter: [
     ['list'],
     ['html', { open: 'never' }],

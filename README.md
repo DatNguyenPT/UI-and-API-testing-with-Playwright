@@ -4,6 +4,8 @@ This repository contains an automation testing project built with **Playwright**
 
 - ✅ UI automation testing (SauceDemo - Login, Products, Cart, Checkout)
 - ✅ API automation testing (DummyJSON - Auth, Users, Products)
+- ✅ Visual regression testing (Screenshot comparison)
+- ✅ Performance testing (k6 load/stress/spike tests)
 - ✅ CI/CD with GitHub Actions (Allure reports, Discord notifications)
 - ✅ Docker containerization for consistent test execution
 
@@ -19,6 +21,7 @@ The project is designed with **SDET / Test Engineer best practices** in mind.
 - **GitHub Actions** - CI/CD pipeline
 - **Docker** - Containerized test execution
 - **Allure** - Test reporting
+- **k6** - Performance testing
 - **dotenv** - Environment variables
 
 ---
@@ -33,7 +36,8 @@ The project is designed with **SDET / Test Engineer best practices** in mind.
 │       ├── ⚙️ ui-test.yaml        # UI tests workflow
 │       ├── ⚙️ api-test.yaml       # API tests workflow
 │       ├── ⚙️ pr-check.yaml       # PR smoke tests
-│       └── ⚙️ scheduled-regression.yaml
+│       ├── ⚙️ scheduled-regression.yaml
+│       └── ⚙️ performance-test.yaml # k6 performance tests
 ├── 📁 api
 │   ├── 📄 BaseApi.ts              # Base API class
 │   ├── 📄 AuthApi.ts              # Auth endpoints
@@ -53,6 +57,13 @@ The project is designed with **SDET / Test Engineer best practices** in mind.
 │   ├── 📄 CheckoutStepOnePage.ts
 │   ├── 📄 CheckoutStepTwoPage.ts
 │   └── 📄 CheckoutCompletePage.ts
+├── 📁 performance              # k6 performance tests
+│   ├── 📄 smoke.js             # Quick validation
+│   ├── 📄 load.js              # Normal load test
+│   ├── 📄 stress.js            # Breaking point test
+│   ├── 📄 spike.js             # Traffic spike test
+│   └── 📁 results              # Test results
+├── 📁 snapshots                # Visual regression baselines
 ├── 📁 tests
 │   ├── 📁 API
 │   │   ├── 📄 login.api.spec.ts
@@ -63,7 +74,8 @@ The project is designed with **SDET / Test Engineer best practices** in mind.
 │       ├── 📄 product.spec.ts
 │       ├── 📄 product-detail.spec.ts
 │       ├── 📄 cart.spec.ts
-│       └── 📄 checkout.spec.ts
+│       ├── 📄 checkout.spec.ts
+│       └── 📄 visual.spec.ts   # Visual regression tests
 ├── 📁 utils
 │   └── 📄 logger.ts
 ├── 🐳 Dockerfile
@@ -169,6 +181,76 @@ npm run allure:open
 
 ---
 
+## Visual Regression Testing
+
+Visual regression tests capture screenshots of key pages and compare them against baseline images.
+
+```bash
+# Run visual regression tests
+npm run test:visual
+
+# Update baseline snapshots (run when UI intentionally changes)
+npm run test:visual:update
+```
+
+**Covered pages:**
+- Login page (authenticated and error states)
+- Inventory/Products page
+- Product detail page
+- Cart page (empty and with items)
+- Checkout flow pages (step one, step two, complete)
+
+Snapshots are stored in the `snapshots/` directory.
+
+---
+
+## Performance Testing (k6)
+
+Performance tests using k6 to measure API performance under various load conditions.
+
+### Prerequisites
+
+Install k6:
+```bash
+# Windows (chocolatey)
+choco install k6
+
+# macOS
+brew install k6
+
+# Ubuntu/Debian
+sudo apt-get install k6
+```
+
+### Run Performance Tests
+
+```bash
+# Smoke test - quick validation (1 VU, 30s)
+npm run perf:smoke
+
+# Load test - simulate typical production load (10-20 VUs, 10 min)
+npm run perf:load
+
+# Stress test - find breaking points (up to 100 VUs, 20 min)
+npm run perf:stress
+
+# Spike test - sudden traffic spikes (up to 150 VUs)
+npm run perf:spike
+```
+
+### Test Types
+
+| Test Type | VUs | Duration | Purpose |
+|-----------|-----|----------|---------|
+| Smoke | 1 | 30s | Quick API health check |
+| Load | 10-20 | 10 min | Normal production load |
+| Stress | 10-100 | 20 min | Find system limits |
+| Spike | 5-150 | 5 min | Test sudden traffic bursts |
+
+Results are saved to `performance/results/`.
+
+---
+
 ## CI/CD Workflows
 
 | Workflow | Trigger | Description |
@@ -177,6 +259,7 @@ npm run allure:open
 | API Tests | Push to main/master | Full API test suite |
 | PR Smoke Tests | Pull requests | Fast smoke tests for PR validation |
 | Scheduled Regression | Daily 6AM UTC | Full regression suite |
+| Performance Tests | Manual / Weekly | k6 performance tests (smoke/load/stress/spike) |
 
 ---
 
@@ -185,3 +268,4 @@ npm run allure:open
 - `@smoke` - Quick validation tests
 - `@regression` - Full test coverage
 - `@critical` - Business-critical flows
+- `@visual` - Visual regression tests
