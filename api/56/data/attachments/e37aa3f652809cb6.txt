@@ -1,0 +1,8 @@
+[2026-02-16T08:55:20.886Z] [api] Created product: {
+  id: 195,
+  title: 'Test Product',
+  price: 99.99,
+  description: 'This is a test product',
+  brand: 'TestBrand',
+  category: 'electronics'
+}
