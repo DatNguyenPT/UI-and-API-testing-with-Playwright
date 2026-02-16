@@ -52,6 +52,12 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      - name: Setup landing page
+        if: always()
+        run: |
+          mkdir -p allure-history
+          cp .github/pages/index.html allure-history/index.html
+
       - name: Build test report
         uses: simple-elf/allure-report-action@master
         if: always()
@@ -60,12 +66,6 @@ jobs:
           allure_history: allure-history/api
           allure_results: allure-results
           subfolder: api
-
-      - name: Copy landing page
-        if: always()
-        run: |
-          mkdir -p allure-history
-          cp .github/pages/index.html allure-history/index.html
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
