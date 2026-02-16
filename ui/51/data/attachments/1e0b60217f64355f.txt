@@ -1,0 +1,5 @@
+[2026-02-16T07:33:20.312Z] [ui] Navigating to /
+[2026-02-16T07:33:20.662Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:33:20.977Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:33:20.977Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:33:21.151Z] [ui] Number of products displayed: 6
