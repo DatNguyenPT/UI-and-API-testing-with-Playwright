@@ -1,4 +1,4 @@
-# Playwright Automation Project
+# Playwright Automation Vibe Coding Project
 
 This repository contains an automation testing project built with **Playwright** using **TypeScript**, covering:
 
