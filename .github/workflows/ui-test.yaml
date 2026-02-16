@@ -83,9 +83,13 @@ jobs:
       - name: Build Allure Report
         uses: simple-elf/allure-report-action@master
         with:
-          gh_pages: gh-pages
-          allure_history: allure-history
+          gh_pages: gh-pages/ui
+          allure_history: allure-history/ui
           allure_results: allure-results
+          subfolder: ui
+
+      - name: Copy landing page
+        run: cp .github/pages/index.html allure-history/index.html
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
@@ -93,3 +97,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+          keep_files: true

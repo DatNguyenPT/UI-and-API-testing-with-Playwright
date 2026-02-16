@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Reports - Playwright Automation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+        }
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #8892b0;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        .cards {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem 3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            min-width: 280px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .card-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .card-desc {
+            color: #8892b0;
+            font-size: 0.95rem;
+        }
+        .card-ui {
+            border-color: #4fc3f7;
+        }
+        .card-ui:hover {
+            box-shadow: 0 10px 40px rgba(79, 195, 247, 0.2);
+        }
+        .card-api {
+            border-color: #81c784;
+        }
+        .card-api:hover {
+            box-shadow: 0 10px 40px rgba(129, 199, 132, 0.2);
+        }
+        .footer {
+            margin-top: 3rem;
+            color: #5a6270;
+            font-size: 0.85rem;
+        }
+        .footer a {
+            color: #8892b0;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Playwright Test Reports</h1>
+        <p class="subtitle">SauceDemo UI & FakeStoreAPI Automation</p>
+        
+        <div class="cards">
+            <a href="./ui/" class="card card-ui">
+                <div class="card-icon">🖥️</div>
+                <div class="card-title">UI Tests</div>
+                <div class="card-desc">SauceDemo E2E Tests<br>Chrome • Firefox • WebKit</div>
+            </a>
+            
+            <a href="./api/" class="card card-api">
+                <div class="card-icon">🔌</div>
+                <div class="card-title">API Tests</div>
+                <div class="card-desc">FakeStoreAPI Tests<br>REST Endpoints</div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            Powered by <a href="https://playwright.dev" target="_blank">Playwright</a> & 
+            <a href="https://docs.qameta.io/allure/" target="_blank">Allure</a>
+        </div>
+    </div>
+</body>
+</html>
