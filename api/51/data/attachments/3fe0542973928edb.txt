@@ -1,0 +1,1 @@
+[2026-02-16T07:06:01.596Z] [api] Response Body: { message: 'Username and password required' }

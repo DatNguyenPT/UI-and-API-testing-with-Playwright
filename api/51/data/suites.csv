@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","240","@smoke @critical Login success","api","Mon Feb 16 07:06:01 UTC 2026","passed","Mon Feb 16 07:06:01 UTC 2026","API Login - DummyJSON","API/login.api.spec.ts","",""
+"","90","@regression Login failed - missing username","api","Mon Feb 16 07:06:01 UTC 2026","passed","Mon Feb 16 07:06:01 UTC 2026","API Login - DummyJSON","API/login.api.spec.ts","",""
+"","136","@regression Login failed - invalid credentials","api","Mon Feb 16 07:06:01 UTC 2026","passed","Mon Feb 16 07:06:01 UTC 2026","API Login - DummyJSON","API/login.api.spec.ts","",""
