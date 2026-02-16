@@ -1,0 +1,15 @@
+[2026-02-16T07:15:07.117Z] [ui] Navigating to /
+[2026-02-16T07:15:07.300Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:15:07.431Z] [ui] Navigating to /
+[2026-02-16T07:15:07.485Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:15:07.566Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:15:07.566Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:15:07.639Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T07:15:07.688Z] [ui] Navigating to Cart Page
+[2026-02-16T07:15:07.688Z] [ui] Navigating to /cart.html
+[2026-02-16T07:15:07.728Z] [ui] Proceeding to Checkout
+[2026-02-16T07:15:07.774Z] [ui] Filling user info: Test User, 12345
+[2026-02-16T07:15:07.795Z] [ui] Clicking Continue
+[2026-02-16T07:15:07.842Z] [ui] Clicking Finish
+[2026-02-16T07:15:07.878Z] [ui] Confirmation header: Thank you for your order!
+[2026-02-16T07:15:07.881Z] [ui] Confirmation text: Your order has been dispatched, and will arrive just as fast as the pony can get there!

@@ -1,0 +1,13 @@
+[2026-02-16T07:15:10.163Z] [ui] Navigating to /
+[2026-02-16T07:15:10.480Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:15:10.739Z] [ui] Navigating to /
+[2026-02-16T07:15:11.007Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:15:11.182Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:15:11.182Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:15:11.519Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T07:15:11.643Z] [ui] Navigating to Cart Page
+[2026-02-16T07:15:11.643Z] [ui] Navigating to /cart.html
+[2026-02-16T07:15:12.011Z] [ui] Proceeding to Checkout
+[2026-02-16T07:15:12.105Z] [ui] Filling user info: Test User, 
+[2026-02-16T07:15:12.196Z] [ui] Clicking Continue
+[2026-02-16T07:15:12.293Z] [ui] Error message: Error: Postal Code is required

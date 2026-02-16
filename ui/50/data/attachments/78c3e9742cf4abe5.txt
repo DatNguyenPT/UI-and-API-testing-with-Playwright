@@ -1,0 +1,4 @@
+[2026-02-16T07:15:02.213Z] [ui] Navigating to /
+[2026-02-16T07:15:02.439Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:15:02.822Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:15:02.823Z] [ui] Navigating to /inventory.html

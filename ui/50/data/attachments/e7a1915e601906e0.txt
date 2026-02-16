@@ -1,0 +1,2 @@
+[2026-02-16T07:14:59.197Z] [ui] Navigating to /
+[2026-02-16T07:14:59.524Z] [ui] Logging in with username: standard_user

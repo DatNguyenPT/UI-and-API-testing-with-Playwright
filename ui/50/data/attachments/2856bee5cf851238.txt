@@ -1,0 +1,7 @@
+[2026-02-16T07:14:43.024Z] [ui] Navigating to /
+[2026-02-16T07:14:43.277Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:14:43.512Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:14:43.512Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:14:43.676Z] [ui] Randomly selected product: Sauce Labs Bike Light
+[2026-02-16T07:14:43.676Z] [ui] Viewing details for product: Sauce Labs Bike Light
+[2026-02-16T07:14:43.754Z] [ui] Navigating back to products from product detail page
