@@ -1,0 +1,12 @@
+[2026-02-16T07:15:06.103Z] [api] Response Body: {
+  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NzEyMjYxMDYsImV4cCI6MTc3MTIyOTcwNn0.J1cTxfUhNfi1piV0W8IWeHWapqwf10i0gwGtuwZKuuY',
+  refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NzEyMjYxMDYsImV4cCI6MTc3MzgxODEwNn0.wsS5vQKQeV4YxL-EIGqvCCeHmhajbGTUeC9NFLwRJ7A',
+  id: 1,
+  username: 'emilys',
+  email: 'emily.johnson@x.dummyjson.com',
+  firstName: 'Emily',
+  lastName: 'Johnson',
+  gender: 'female',
+  image: 'https://dummyjson.com/icon/emilys/128'
+}
+[2026-02-16T07:15:06.106Z] [api] Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NzEyMjYxMDYsImV4cCI6MTc3MTIyOTcwNn0.J1cTxfUhNfi1piV0W8IWeHWapqwf10i0gwGtuwZKuuY
