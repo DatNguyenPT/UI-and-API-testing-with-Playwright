@@ -1,0 +1,14 @@
+[2026-02-16T07:06:06.963Z] [ui] Navigating to /
+[2026-02-16T07:06:07.168Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:06:07.346Z] [ui] Navigating to /
+[2026-02-16T07:06:07.506Z] [ui] Logging in with username: standard_user
+[2026-02-16T07:06:07.635Z] [ui] Navigating to Product Page: https://www.saucedemo.com/inventory.html
+[2026-02-16T07:06:07.635Z] [ui] Navigating to /inventory.html
+[2026-02-16T07:06:07.840Z] [ui] Adding product to cart: Sauce Labs Backpack
+[2026-02-16T07:06:07.952Z] [ui] Navigating to Cart Page
+[2026-02-16T07:06:07.952Z] [ui] Navigating to /cart.html
+[2026-02-16T07:06:08.140Z] [ui] Proceeding to Checkout
+[2026-02-16T07:06:08.238Z] [ui] Filling user info: Test User, 12345
+[2026-02-16T07:06:08.279Z] [ui] Clicking Continue
+[2026-02-16T07:06:08.355Z] [ui] Prices - Subtotal: $29.99, Tax: $2.4, Total: $32.39
+[2026-02-16T07:06:08.355Z] [ui] Prices: Subtotal=$29.99, Tax=$2.4, Total=$32.39
