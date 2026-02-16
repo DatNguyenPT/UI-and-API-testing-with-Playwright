@@ -35,7 +35,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run API tests
-        run: DEBUG=api npx playwright test API/
+        run: DEBUG=api npx playwright test --project=api
 
       - name: Upload Playwright Report
         if: always()
